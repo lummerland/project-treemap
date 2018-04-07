@@ -40,14 +40,14 @@ class ProjectTreeMap {
 
 					def json = treeMap.wholeTreeToJSON()
 					def pathToHttpFiles = pluginPath + "/http"
-					def tempDir = FileUtil.createTempDirectory(project.name + "_", "_codecity")
+					def tempDir = FileUtil.createTempDirectory(project.name + "_", "_treemap")
 					FileUtil.copyDirContent(new File(pathToHttpFiles), tempDir)
-					fillTemplate("$pathToHttpFiles/code-city-template.html", json, tempDir.absolutePath + "/code-city.html")
+					fillTemplate("$pathToHttpFiles/treemap-template.html", json, tempDir.absolutePath + "/treemap.html")
 					log("Saved html into: " + tempDir.absolutePath)
 
 					def server = restartHttpServer(project.name, tempDir.absolutePath, {null}, {log(it)})
 
-					BrowserUtil.browse("http://localhost:${server.port}/code-city.html")
+					BrowserUtil.browse("http://localhost:${server.port}/treemap.html")
 				}
 			}
 
